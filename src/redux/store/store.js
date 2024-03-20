@@ -1,11 +1,14 @@
-import { createStore } from "redux";
+// store.js
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import rootReducer from "./reducers";
 
+// Başlangıç durumu (initial state)
 const initialState = {
-  menuItems: [],
+  menuItems: [], // Örnek bir durum (state)
 };
 
+// Reducer fonksiyonu
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_MENU_ITEMS":
@@ -15,5 +18,7 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-const store = createStore(reducer, applyMiddleware(thunk));
+// rootReducer'unuzu import etmeyi unutmayın
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
 export default store;

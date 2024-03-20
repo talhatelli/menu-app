@@ -31,7 +31,7 @@ const CategoryDetail = ({ route, navigation }) => {
   return (
     <View style={{ flex: 1, marginTop: 70, marginHorizontal: 16 }}>
       <Header
-        headerText={"Hi, bro "}
+        headerText={"Menu Marvel"}
         headerIcon={"bell-o"}
         headerExit={true}
         navigation={navigation}

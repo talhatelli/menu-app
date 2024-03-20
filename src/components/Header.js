@@ -1,17 +1,38 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
+import { colors } from "../Constant";
 
-const Header = ({ headerText, headerIcon }) => {
-	return (
-		<View style={{ flexDirection: "row" }}>
-			<Text style={{ flex: 1, fontSize: 22, fontWeight: "700" }}>
-				{headerText}
-			</Text>
+const Header = ({ headerText, headerIcon, headerExit, navigation }) => {
+  return (
+    <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <Text style={{ flex: 1, fontSize: 22, fontWeight: "700" }}>
+        {headerText}
+      </Text>
 
-			<FontAwesome name={headerIcon} size={24} color="#f96163" />
-		</View>
-	);
+      <FontAwesome name={headerIcon} size={24} color="#f96163" />
+      {headerExit && (
+        <TouchableOpacity
+          onPress={() => navigation.navigate("RecipeList")}
+          style={{
+            borderRadius: 50,
+            backgroundColor: colors.COLOR_PRIMARY,
+            width: 30,
+            height: 30,
+            alignItems: "center",
+            justifyContent: "center",
+            marginLeft: 10,
+          }}
+        >
+          <FontAwesome
+            name="chevron-right"
+            size={15}
+            color={colors.COLOR_LIGHT}
+          />
+        </TouchableOpacity>
+      )}
+    </View>
+  );
 };
 
 export default Header;

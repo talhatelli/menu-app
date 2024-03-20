@@ -24,7 +24,7 @@ const CategoriesFilter = () => {
     fetchData();
   }, []);
 
-  const handleCategoryPress = async (categoryId) => {
+  const handleCategoryPress = async (categoryId, categoryName) => {
     try {
       const menuItems = await fetchMenuItemCategories(categoryId);
       console.log(
@@ -33,7 +33,10 @@ const CategoriesFilter = () => {
         ":",
         menuItems
       );
-      navigation.navigate("CategoryDetail", { categoryId: categoryId });
+      navigation.navigate("CategoryDetail", {
+        categoryId: categoryId,
+        categoryName: categoryName,
+      });
     } catch (error) {
       console.error("Error fetching menu items:", error);
     }
@@ -65,7 +68,7 @@ const CategoriesFilter = () => {
                   color: index === 0 && colors.COLOR_LIGHT,
                   fontSize: 18,
                 }}
-                onPress={() => handleCategoryPress(category._id)}
+                onPress={() => handleCategoryPress(category._id, category.name)}
               >
                 {category.name}
               </Text>

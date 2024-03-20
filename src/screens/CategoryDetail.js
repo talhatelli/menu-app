@@ -1,58 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { View, Text, FlatList, StyleSheet } from "react-native";
-// import { fetchMenuItemCategories } from "../Constant";
-
-// const CategoryDetail = ({ route }) => {
-//   const { categoryId } = route.params;
-//   const [menuItems, setMenuItems] = useState([]);
-
-//   useEffect(() => {
-//     const fetchItems = async () => {
-//       try {
-//         const items = await fetchMenuItemCategories(categoryId);
-//         setMenuItems(items);
-//       } catch (error) {
-//         console.error("Error fetching menu items:", error);
-//       }
-//     };
-//     fetchItems();
-//   }, [categoryId]);
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.header}>Menu Items for Category</Text>
-//       <FlatList
-//         data={menuItems}
-//         renderItem={({ item }) => (
-//           <View style={styles.item}>
-//             <Text>{item.name}</Text>
-//             <Text>{item.description}</Text>
-//             <Text>{item.price} ₺</Text>
-//           </View>
-//         )}
-//         keyExtractor={(item) => item._id}
-//       />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     padding: 16,
-//   },
-//   header: {
-//     fontSize: 24,
-//     fontWeight: "bold",
-//     marginBottom: 16,
-//   },
-//   item: {
-//     marginBottom: 16,
-//   },
-// });
-
-// export default CategoryDetail;
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -63,9 +8,12 @@ import {
   Pressable,
 } from "react-native";
 import { fetchMenuItemCategories, colors } from "../Constant";
+import Header from "../components/Header";
+import SearchFilter from "../components/SearchFilter";
 
 const CategoryDetail = ({ route, navigation }) => {
   const { categoryId } = route.params;
+  const { categoryName } = route.params;
   const [menuItems, setMenuItems] = useState([]);
 
   useEffect(() => {
@@ -81,48 +29,118 @@ const CategoryDetail = ({ route, navigation }) => {
   }, [categoryId]);
 
   return (
-    <View>
-      <FlatList
-        data={menuItems}
-        renderItem={({ item }) => (
-          <Pressable
-            onPress={() =>
-              navigation.navigate("CategoryDetail", { item: item })
-            }
+    <View style={{ flex: 1, marginTop: 70, marginHorizontal: 16 }}>
+      <Header
+        headerText={"Hi, bro "}
+        headerIcon={"bell-o"}
+        headerExit={true}
+        navigation={navigation}
+      />
+
+      <SearchFilter icon="search" placeholder={"Enter your menu item"} />
+
+      <View style={{ marginTop: 2 }}>
+        <Text style={{ fontSize: 22, fontWeight: "bold" }}>
+          Categories:{" "}
+          <Text
             style={{
-              backgroundColor: colors.COLOR_LIGHT,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.1,
-              shadowRadius: 7,
-              borderRadius: 16,
-              marginVertical: 16,
-              alignItems: "center",
-              paddingHorizontal: 8,
-              paddingVertical: 26,
+              fontSize: 22,
+              color: colors.COLOR_PRIMARY,
+              fontWeight: "bold",
             }}
           >
-            <Image
-              source={{ uri: item.imageUrl }}
-              style={{ width: 150, height: 150, resizeMode: "cover" }}
-            />
-            <Text>{item.name}</Text>
-            <View style={{ flexDirection: "row", marginTop: 8 }}>
-              <Text>{item.price} ₺</Text>
+            {categoryName}
+          </Text>
+        </Text>
+      </View>
+
+      <View style={{ marginTop: 25, flex: 1 }}>
+        <Text style={{ fontSize: 22, fontWeight: "bold" }}>Menu Items</Text>
+        <View style={styles.container}>
+          {menuItems.length === 0 ? (
+            <View
+              style={{
+                flex: 1,
+                marginTop: 230,
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.noItemsText}>No menu items available.</Text>
             </View>
-          </Pressable>
-        )}
-        numColumns={2}
-        columnWrapperStyle={{
-          justifyContent: "space-between",
-        }}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item._id}
-      />
+          ) : (
+            <FlatList
+              data={menuItems}
+              renderItem={({ item }) => (
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate("RecipeDetail", { item: item })
+                  }
+                  style={styles.itemContainer}
+                >
+                  <Image source={{ uri: item.imageUrl }} style={styles.image} />
+                  <Text style={styles.name}>{item.name}</Text>
+                  <View style={styles.priceContainer}>
+                    <Text style={styles.price}>{item.price} ₺</Text>
+                  </View>
+                </Pressable>
+              )}
+              numColumns={2}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item) => item._id}
+            />
+          )}
+        </View>
+      </View>
     </View>
   );
 };
 
-export default CategoryDetail;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.COLOR_BACKGROUND,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+  },
+  noItemsText: {
+    fontSize: 18,
+    textAlign: "center",
+  },
+  itemContainer: {
+    backgroundColor: colors.COLOR_LIGHT,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 7,
+    borderRadius: 16,
+    alignItems: "center",
+    paddingHorizontal: 8,
+    paddingVertical: 16,
+    marginBottom: 16,
+    flex: 1,
+    marginHorizontal: 8,
+  },
+  image: {
+    width: "100%",
+    height: 150,
+    resizeMode: "cover",
+    marginBottom: 8,
+    borderRadius: 8,
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  priceContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 4,
+  },
+  price: {
+    fontSize: 14,
+    marginRight: 4,
+  },
+});
 
-const styles = StyleSheet.create({});
+export default CategoryDetail;

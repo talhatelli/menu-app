@@ -211,3 +211,13 @@ export const fetchMenuItems = async () => {
     throw error;
   }
 };
+export const fetchMenuItemDetail = async (menuItemId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/menu-items/${menuItemId}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching menu items:", error);
+    throw error;
+  }
+};

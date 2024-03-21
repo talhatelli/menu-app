@@ -6,6 +6,7 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 import RecipeListScreen from "../screens/RecipeListScreen";
 import RecipeDetailsScreen from "../screens/RecipeDetailsScreen";
 import CategoryDetail from "../screens/CategoryDetail";
+import MenuItemDetail from "../screens/MenuItemDetail";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
@@ -16,6 +17,7 @@ const AppNavigator = () => {
         <Stack.Screen name="RecipeList" component={RecipeListScreen} />
         <Stack.Screen name="RecipeDetail" component={RecipeDetailsScreen} />
         <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
+        <Stack.Screen name="MenuItemDetail" component={MenuItemDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

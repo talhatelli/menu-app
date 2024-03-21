@@ -27,12 +27,6 @@ const CategoriesFilter = () => {
   const handleCategoryPress = async (categoryId, categoryName) => {
     try {
       const menuItems = await fetchMenuItemCategories(categoryId);
-      console.log(
-        "Menu items for category with id",
-        categoryId,
-        ":",
-        menuItems
-      );
       navigation.navigate("CategoryDetail", {
         categoryId: categoryId,
         categoryName: categoryName,

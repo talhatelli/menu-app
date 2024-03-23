@@ -8,7 +8,7 @@ import {
 } from "../Constant";
 import { useNavigation } from "@react-navigation/native";
 
-const CategoriesFilter = () => {
+const Categories = () => {
   const [categories, setCategories] = useState([]);
   const navigation = useNavigation();
 
@@ -74,6 +74,6 @@ const CategoriesFilter = () => {
   );
 };
 
-export default CategoriesFilter;
+export default Categories;
 
 const styles = StyleSheet.create({});

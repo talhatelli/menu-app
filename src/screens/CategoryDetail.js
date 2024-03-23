@@ -73,7 +73,7 @@ const CategoryDetail = ({ route, navigation }) => {
               renderItem={({ item }) => (
                 <Pressable
                   onPress={() =>
-                    navigation.navigate("RecipeDetail", { item: item })
+                    navigation.navigate("MenuItemDetail", { item: item })
                   }
                   style={styles.itemContainer}
                 >

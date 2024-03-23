@@ -13,7 +13,7 @@ const Header = ({ headerText, headerIcon, headerExit, navigation }) => {
       <FontAwesome name={headerIcon} size={24} color="#f96163" />
       {headerExit && (
         <TouchableOpacity
-          onPress={() => navigation.navigate("RecipeList")}
+          onPress={() => navigation.navigate("MenuItemList")}
           style={{
             borderRadius: 50,
             backgroundColor: colors.COLOR_PRIMARY,

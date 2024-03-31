@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { fetchMenuItemDetail, colors } from "../Constant";
+import { fetchMenuItemDetail, colors } from "../Requests";
 import Header from "../components/Header";
 import SearchFilter from "../components/SearchFilter";
 

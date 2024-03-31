@@ -7,7 +7,7 @@ import {
   Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { colors, fetchMenuItems } from "../Constant";
+import { colors, fetchMenuItems } from "../Requests";
 import { useNavigation } from "@react-navigation/native";
 
 const RecipeCard = () => {

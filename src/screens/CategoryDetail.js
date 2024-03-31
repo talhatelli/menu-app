@@ -7,7 +7,7 @@ import {
   Image,
   Pressable,
 } from "react-native";
-import { fetchMenuItemCategories, colors } from "../Constant";
+import { fetchMenuItemCategories, colors } from "../Requests";
 import Header from "../components/Header";
 import SearchFilter from "../components/SearchFilter";
 
@@ -15,6 +15,8 @@ const CategoryDetail = ({ route, navigation }) => {
   const { categoryId } = route.params;
   const { categoryName } = route.params;
   const [menuItems, setMenuItems] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -37,8 +39,15 @@ const CategoryDetail = ({ route, navigation }) => {
         navigation={navigation}
       />
 
-      <SearchFilter icon="search" placeholder={"Enter your menu item"} />
-
+      <SearchFilter
+        icon="search"
+        placeholder={"Enter your menu item"}
+        data={menuItems}
+        setSearchResults={setSearchResults}
+        setShowDropdown={setShowDropdown}
+        showDropdown={showDropdown}
+        searchResults={searchResults}
+      />
       <View style={{ marginTop: 2 }}>
         <Text style={{ fontSize: 22, fontWeight: "bold" }}>
           Categories:{" "}

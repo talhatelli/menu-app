@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
-import { colors } from "../Constant";
+import { colors } from "../Requests";
 
 const Header = ({ headerText, headerIcon, headerExit, navigation }) => {
   return (

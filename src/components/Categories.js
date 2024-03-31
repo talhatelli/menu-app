@@ -5,7 +5,7 @@ import {
   fetchCategories,
   colors,
   fetchMenuItems,
-} from "../Constant";
+} from "../Requests";
 import { useNavigation } from "@react-navigation/native";
 
 const Categories = () => {
@@ -46,7 +46,7 @@ const Categories = () => {
               style={{
                 backgroundColor:
                   index === 0 ? colors.COLOR_PRIMARY : colors.COLOR_LIGHT,
-                marginRight: 36,
+                marginRight: 12,
                 borderRadius: 8,
                 paddingHorizontal: 16,
                 paddingVertical: 10,

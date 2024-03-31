@@ -1,11 +1,12 @@
+// import { BASE_URL } from "@env";
+BASE_URL = "http://localhost:5001";
+
 export const colors = {
   COLOR_PRIMARY: "#f96163",
   COLOR_LIGHT: "#fff",
   COLOR_DARK: "#000",
   COLOR_DARK_ALT: "#262626",
 };
-
-const BASE_URL = "http://localhost:5001";
 
 export const fetchCategories = async () => {
   try {

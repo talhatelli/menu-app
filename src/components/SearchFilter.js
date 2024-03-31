@@ -30,12 +30,6 @@ const SearchFilter = ({
     setSearchResults(results);
   };
 
-  const handleDropdownSelect = (item) => {
-    setSearchText(item.name);
-    setShowDropdown(false);
-    navigation.navigate("MenuItemDetail", { menuItemId: item._id }); // Navigate to MenuItemDetail with the selected item ID
-  };
-
   return (
     <View style={styles.container}>
       <FontAwesome name={icon} size={20} color="#f96163" />
@@ -46,34 +40,23 @@ const SearchFilter = ({
         value={searchText}
       />
       <TouchableOpacity
-        onPress={() => setShowDropdown(false)}
         style={styles.closeButton}
+        onPress={() => {
+          setSearchText("");
+          setSearchResults([]);
+          setShowDropdown(false);
+        }}
       >
         <FontAwesome name="times" size={20} color="#f96163" />
       </TouchableOpacity>
-      {searchResults.length > 0 && (
-        <View style={styles.dropdownContainer}>
-          <FlatList
-            data={searchResults}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.dropdownItem}
-                onPress={() => handleDropdownSelect(item)}
-              >
-                <Text style={styles.dropdownText}>{item.name}</Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-      )}
+
+      {searchResults && <View style={styles.dropdownContainer}></View>}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative", // Ensure container is relative for absolute positioning
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#fff",
@@ -84,6 +67,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 7,
+    height: 40,
   },
   input: {
     paddingLeft: 8,
@@ -95,11 +79,11 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
   },
   dropdownContainer: {
-    zIndex: 999, // Ensure dropdown is above other content
-    position: "absolute", // Position dropdown absolutely
-    top: 25, // Adjust top position as needed
-    left: 16,
-    right: 16,
+    zIndex: 999,
+    position: "absolute",
+    // top: 43,
+    // left: 16,
+    // right: 16,
     backgroundColor: "#fff",
     borderRadius: 8,
     shadowColor: "#000",

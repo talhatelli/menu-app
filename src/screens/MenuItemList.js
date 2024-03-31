@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import SearchFilter from "../components/SearchFilter";
 import Categories from "../components/Categories";
 import RecipeCard from "../components/RecipeCard";
-import { fetchMenuItems } from "../Constant";
+import { fetchMenuItems } from "../Requests";
 import { useNavigation } from "@react-navigation/native";
 
 const MenuItemList = () => {
@@ -24,8 +24,13 @@ const MenuItemList = () => {
     };
     fetchMenuItemsData();
   }, []);
+
   const handleMenuItemPress = (menuItem) => {
-    navigation.navigate("MenuItemDetail", { menuItemId: menuItem._id });
+    if (menuItem && menuItem._id) {
+      navigation.navigate("MenuItemDetail", { item: menuItem });
+    } else {
+      console.error("Invalid menuItem:", menuItem);
+    }
   };
 
   return (
@@ -35,16 +40,12 @@ const MenuItemList = () => {
         icon="search"
         placeholder={"Enter your menu item"}
         data={menuItems}
-        setSearchResults={(results) => {
-          console.log("New Search Results:", results); // Add this line to check searchResults
-          setSearchResults(results);
-        }}
+        setSearchResults={setSearchResults}
         setShowDropdown={setShowDropdown}
         showDropdown={showDropdown}
-        searchResults={searchResults} // searchResults prop'unu geçirin
+        searchResults={searchResults}
       />
-
-      {showDropdown && (
+      {searchResults.length > 0 ? (
         <ScrollView style={styles.dropdown}>
           {searchResults.map((item) => (
             <Text
@@ -56,16 +57,18 @@ const MenuItemList = () => {
             </Text>
           ))}
         </ScrollView>
+      ) : (
+        <View>
+          <View style={{ marginTop: 22 }}>
+            <Text style={{ fontSize: 22, fontWeight: "bold" }}>Categories</Text>
+            <Categories />
+          </View>
+          <View style={{ marginTop: 22 }}>
+            <Text style={{ fontSize: 22, fontWeight: "bold" }}>Menu Items</Text>
+            <RecipeCard />
+          </View>
+        </View>
       )}
-      <View style={{ marginTop: 22 }}>
-        <Text style={{ fontSize: 22, fontWeight: "bold" }}>Categories</Text>
-        <Categories />
-      </View>
-
-      <View style={{ marginTop: 22, flex: 1 }}>
-        <Text style={{ fontSize: 22, fontWeight: "bold" }}>Menu Items</Text>
-        <RecipeCard />
-      </View>
     </SafeAreaView>
   );
 };
@@ -74,10 +77,11 @@ export default MenuItemList;
 
 const styles = StyleSheet.create({
   dropdown: {
-    maxHeight: 200,
+    maxHeight: 150,
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
+    backgroundColor: "white",
     marginTop: 5,
   },
   dropdownItem: {
@@ -85,5 +89,6 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+    backgroundColor: "white",
   },
 });
